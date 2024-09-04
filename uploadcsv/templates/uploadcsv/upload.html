@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CSV Files</title>
+</head>
+<body>
+    <h2>Upload CSV Files</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="csv_file_1">CSV File 1:</label>
+        <input type="file" name="csv_file_1" accept=".csv" required><br>
+        <label for="csv_file_2">CSV File 2:</label>
+        <input type="file" name="csv_file_2" accept=".csv" required><br><br>
+        <button type="submit">Filtrar CSV</button>
+    </form>
+
+    {% if csv_files %}
+        <h3>CSV Files Uploaded:</h3>
+        <ul>
+            <li>CSV 1: {{ csv_files.csv_file_1.name }}</li>
+            <li>CSV 2: {{ csv_files.csv_file_2.name }}</li>
+        </ul>
+
+        {% if csv_files.result_file %}
+            <h3>Resultado:</h3>
+            <a href="{{ csv_files.result_file }}">Download CSV Gerado</a>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
